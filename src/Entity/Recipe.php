@@ -50,11 +50,18 @@ class Recipe
     #[ORM\OneToMany(targetEntity: RecipeHasSource::class, mappedBy: 'recipe', orphanRemoval: true)]
     private Collection $recipeHasSources;
 
+    /**
+     * @var Collection<int, Image>
+     */
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'recipe', orphanRemoval: true)]
+    private Collection $images;
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->recipeHasSources = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function isDraft(): ?bool
@@ -186,6 +193,36 @@ class Recipe
             // set the owning side to null (unless already changed)
             if ($recipeHasSource->getRecipe() === $this) {
                 $recipeHasSource->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getRecipe() === $this) {
+                $image->setRecipe(null);
             }
         }
 
