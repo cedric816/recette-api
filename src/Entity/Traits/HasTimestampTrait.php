@@ -2,16 +2,20 @@
 
 namespace App\Entity\Traits;
 
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 trait HasTimestampTrait
 {
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    protected ?DateTime $createdAt;
 
+    #[Gedmo\Timestampable(on: 'update')]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    protected ?DateTime $updatedAt;
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
