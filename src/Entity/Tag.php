@@ -41,11 +41,6 @@ class Tag
         $this->children = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function isMenu(): ?bool
     {
         return $this->menu;

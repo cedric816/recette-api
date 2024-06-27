@@ -24,11 +24,6 @@ class Step
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
