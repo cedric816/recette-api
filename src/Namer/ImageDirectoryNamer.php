@@ -9,7 +9,7 @@ use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 /**
  * @implements DirectoryNamerInterface<Image>
  */
-class ImgaeDirectoryNamer implements DirectoryNamerInterface
+class ImageDirectoryNamer implements DirectoryNamerInterface
 {
     /**
      * @param Image $object
