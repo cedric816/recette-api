@@ -1,0 +1,30 @@
+# https://api-platform.com/docs/core/configuration/
+api_platform:
+    show_webby: false
+    title: Recette-API
+    description: api pour avoir plein de recettes végan!
+    openapi:
+        # The contact information for the exposed API.
+        contact:
+            # The identifying name of the contact person/organization.
+            name: Cédric Noisette
+            # The URL pointing to the contact information. MUST be in the format of a URL.
+            url: https://cedric-web.fr
+            # The email address of the contact person/organization. MUST be in the format of an email address.
+            email: contact@cedric-web.fr
+    version: 1.0.0
+    formats:
+        jsonld: ['application/ld+json']
+    docs_formats:
+        jsonld: ['application/ld+json']
+        jsonopenapi: ['application/vnd.openapi+json']
+        html: ['text/html']
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
+        extra_properties:
+            standard_put: true
+            rfc_7807_compliant_errors: true
+    keep_legacy_inflector: false
+    use_symfony_listeners: true
