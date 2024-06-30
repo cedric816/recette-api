@@ -2,14 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasDescriptionTrait;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasPriorityTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Delete(),
+    ]
+)]
 class Image
 {
     use HasIdTrait;
@@ -18,6 +32,7 @@ class Image
     use HasPriorityTrait;
 
     #[ORM\Column(length: 255)]
+    #[Groups('get')]
     private ?string $path = null;
 
     #[ORM\Column]

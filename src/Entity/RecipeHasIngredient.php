@@ -2,30 +2,51 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\RecipeHasIngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeHasIngredientRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Get(),
+        new Post(),
+        new Patch(),
+        new Delete(),
+    ]
+)]
 class RecipeHasIngredient
 {
     use HasIdTrait;
 
     #[ORM\Column]
+    #[Groups('get')]
     private ?float $quantity = null;
 
     #[ORM\Column]
+    #[Groups('get')]
     private ?bool $optional = false;
 
     #[ORM\ManyToOne(inversedBy: 'recipeHasIngredients')]
     #[ORM\JoinColumn(onDelete: 'SET NULL')]
+    #[Groups('get')]
     private ?Unit $unit = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipeHasIngredients')]
+    #[Groups('get')]
     private ?IngredientGroup $ingredientGroup = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipeHasIngredients')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('get')]
     private ?Ingredient $ingredient = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipeHasIngredients')]
