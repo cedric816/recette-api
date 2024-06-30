@@ -38,9 +38,6 @@ class Step
     #[Groups('get')]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $priority = null;
-
     #[ORM\ManyToOne(inversedBy: 'steps')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
@@ -65,18 +62,6 @@ class Step
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getPriority(): ?int
-    {
-        return $this->priority;
-    }
-
-    public function setPriority(int $priority): static
-    {
-        $this->priority = $priority;
 
         return $this;
     }
